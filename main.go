@@ -57,7 +57,15 @@ func handleKeep(w http.ResponseWriter, r *http.Request) {
  * Handle keep by identification
  */
 func handleKeepById(w http.ResponseWriter, r *http.Request) {
-    //implement here
+    params := mux.Vars(r)
+    for _, item := range keeps {
+        if item.ID == params["id"] {
+            json.NewEncoder(w).Encode(item)
+            return
+        }
+    }
+
+    json.NewEncoder(w).Encode(&Keep{})
 }
 
 /**
