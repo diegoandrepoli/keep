@@ -1,17 +1,35 @@
 package main
 
 import (
+    "encoding/json"
     "fmt"
     "github.com/gorilla/mux"
     "log"
     "net/http"
 )
 
+
+// The keep type
+type Keep struct {
+    ID       string   `json:"id,omitempty"`
+    Title    string   `json:"title,omitempty"`
+    Message  string   `json:"message,omitempty"`
+}
+
+var keeps []Keep
+
+
+
 /**
  * Main server
  */
 func main() {
     var router = mux.NewRouter()
+
+    //keep demo api
+    keeps = append(keeps, Keep{ID: "1", Title: "My keep", Message: "Keep display message"})
+    keeps = append(keeps, Keep{ID: "2", Title: "My second keep", Message: "Keep display on second keep message"})
+
     router.HandleFunc("/", index).Methods("GET")
     router.HandleFunc("/keep", postKeep).Methods("POST")
     router.HandleFunc("/keep", handleKeep).Methods("GET")
@@ -29,10 +47,10 @@ func index(w http.ResponseWriter, r *http.Request){
 }
 
 /**
- * Handle all keeps
+ * Encode and response all keeps
  */
 func handleKeep(w http.ResponseWriter, r *http.Request) {
-    //implement here
+   json.NewEncoder(w).Encode(keeps)
 }
 
 /**
