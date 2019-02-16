@@ -72,6 +72,9 @@ func handleKeepById(w http.ResponseWriter, r *http.Request) {
  * Post keep
  */
 func postKeep(w http.ResponseWriter, r *http.Request) {
-    //implement here
+    var keep Keep
+    _ = json.NewDecoder(r.Body).Decode(&keep)
+    keeps = append(keeps, keep)
+    json.NewEncoder(w).Encode(keep)
 }
 
