@@ -34,6 +34,7 @@ func main() {
     router.HandleFunc("/keep", postKeep).Methods("POST")
     router.HandleFunc("/keep", handleKeep).Methods("GET")
     router.HandleFunc("/keep/{id}", handleKeepById).Methods("GET")
+    router.HandleFunc("/keep/{id}", deleteKeepById).Methods("DELETE")
 
     fmt.Println("Running keep server!")
     log.Fatal(http.ListenAndServe(":8080", router))
@@ -78,3 +79,13 @@ func postKeep(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(keep)
 }
 
+
+func deleteKeepById(w http.ResponseWriter, r *http.Request){
+   params := mux.Vars(r)
+   for index, item := range keeps {
+      if item.ID == params["id"] {
+         keeps = append(keeps[:index], keeps[index+1:]...)
+         break
+      }
+    }
+}
