@@ -1,6 +1,7 @@
 package main
 
 import (
+    //"models"
     "encoding/json"
     "fmt"
     "github.com/gorilla/mux"
@@ -44,8 +45,17 @@ func main() {
  * Main keep data
  */
 func index(w http.ResponseWriter, r *http.Request){
-   fmt.Fprintln(w, "Welcome to Keep!")
+   fmt.Fprintln(w, getIndexMessage())
 }
+
+
+/**
+ * Get index message
+ */
+func getIndexMessage() string {
+   return "Welcome to keep!"
+}
+
 
 /**
  * Encode and response all keeps
