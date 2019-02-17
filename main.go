@@ -73,13 +73,10 @@ func postKeep(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(keep)
 }
 
-
 func deleteKeepById(w http.ResponseWriter, r *http.Request){
    params := mux.Vars(r)
-   for index, item := range keeps {
-      if item.ID == params["id"] {
-         keeps = append(keeps[:index], keeps[index+1:]...)
-         break
-      }
-    }
+   var id = params["id"]
+
+   //remove keep by id
+   keeps = removeKeepFromList(id, keeps)
 }
