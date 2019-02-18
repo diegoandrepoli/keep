@@ -6,5 +6,5 @@ Keep is a API to manage keeps, project in development.
 
 Clone this repository and execute this command:
 
-> go run main.go
+> go run $(ls -1 *.go | grep -v _test.go) 
 
